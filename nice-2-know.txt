@@ -1,0 +1,15 @@
+# Kubernetes Aliasses
+alias k="kubectl"
+source /etc/bash_completion
+source <(kubectl completion bash)
+complete -o default -F __start_kubectl k
+
+# For later
+# alias kgp='kubectl get pods'
+# alias kc='kubectx'
+# alias kn=kubens'
+# alias kcs='kubectl config use-context rancher-desktop'
+# alias kcp='kubectl config use-context HIERCONTEXTEINFÜGEN-prod'
+# Unlock RDP-Login
+loginctl unlock-sessions
+
