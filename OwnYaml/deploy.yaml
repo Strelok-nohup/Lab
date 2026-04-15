@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploytest
+  name: deploytest
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: deploytest
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: deploytest
+    spec:
+      containers:
+      - image: httpd
+        name: httpd
+        resources: {}
+status: {}
