@@ -1,6 +1,11 @@
 # Hier schreibe ich auf was ich so erfolgreich gelernt um Umgesetzt habe.
 *Feingranulare schritte aus den Commits entnehmen*
 
+Kapitel abgeschlossen
+Abschnitt 1
+Abschnitt 2
+    next = Pods as cide - YAML
+
 - Ubuntu Server vorbereitet
 - - Rancher Desktop installiert
 - - k8s/k3s installiert
