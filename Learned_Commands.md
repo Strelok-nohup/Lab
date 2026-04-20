@@ -1,4 +1,4 @@
-# Kubernetes Commands – Übersicht
+# Kubernetes Commands - Übersicht
 
 | Command | Was es macht |
 |---|---|
@@ -9,60 +9,24 @@
 | `kcs` | Alias → `kubectl config use-context` |
 | `k run nginx-yaml --image=nginx --dry-run=client -o yaml` | Pod-YAML lokal generieren ohne anzulegen (kein Cluster nötig) |
 | `kubectl apply --dry-run=server -f nginx.yaml` | Manifest gegen Cluster validieren ohne anzulegen |
+| `k get pods -o wide` | Mehr Details zu Pods anzeigen |
+| `k exec -it nginx-domke -- /bin/bash` | Interaktive Shell in Pod öffnen |
+| `k create deployment test --image=httpd --replicas=3` | Deployment mit 3 Replicas aus httpd Image erstellen |
+| `k get deployments.apps` | Deployments anzeigen |
+| `k create deployment -h \| vim -` | Hilfe zu Deployment-Erstellung in Vim öffnen |
 
-k get pods -o wide
-k exec -it nginx-domke -- /bin/bash
-k create deployment test --image=httpd --replicas=3
-k get deployments.apps
-k create deployment -h | vim -
-https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
-- Im bezug auf "Rolling Updates"
-in Vim = :set paste (Formatierung entfernen fuer einrückungen
-strategy Rolling Update =  maxSurge: 25%  maxUnavailable: 25%
-Im grunde Recreate und RollingUpdate unterschiede durchgegangen
-Namespaces kubenetersdocs nachtragen
-Jede Application eigenen Namespaces und damit eigene Netzwerkkontrolle
-set namespace in config with = <k config set-context --current --namespace=strelok>
-https://github.com/mealie-recipes/mealie erste applikation deployn
-Forward one or more local ports to a pod.
+## Weitere Hinweise
 
- Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to 'pod' if omitted.
-
- If there are multiple pods matching the criteria, a pod will be selected automatically. The forwarding session ends when the selected pod terminates, and a rerun of the command is needed to resume forwarding.
-
-Examples:
-  # Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in the pod
-  kubectl port-forward pod/mypod 5000 6000
-  
-  # Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in a pod selected by the deployment
-  kubectl port-forward deployment/mydeployment 5000 6000
-  
-  # Listen on port 8443 locally, forwarding to the targetPort of the service's port named "https" in a pod selected by the service
-  kubectl port-forward service/myservice 8443:https
-  
-  # Listen on port 8888 locally, forwarding to 5000 in the pod
-  kubectl port-forward pod/mypod 8888:5000
-  
-  # Listen on port 8888 on all addresses, forwarding to 5000 in the pod
-  kubectl port-forward --address 0.0.0.0 pod/mypod 8888:5000
-  
-  # Listen on port 8888 on localhost and selected IP, forwarding to 5000 in the pod
-  kubectl port-forward --address localhost,10.19.21.23 pod/mypod 8888:5000
-  
-  # Listen on a random port locally, forwarding to 5000 in the pod
-  kubectl port-forward pod/mypod :5000
-
-Options:
-    --address=[localhost]:
-	Addresses to listen on (comma separated). Only accepts IP addresses or localhost as a value. When localhost is supplied, kubectl will try to bind on both 127.0.0.1 and ::1 and will fail if neither of these addresses are available to bind.
-
-    --pod-running-timeout=1m0s:
-	The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
-
-Usage:
-  kubectl port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]
-
-Use "kubectl options" for a list of global command-line options (applies to all commands).
-deployment => replicaset => pods
-k port-forward pods/strelok-app-65b97b5d-wxpd8 9000
-k port-forward pods/strelok-app-65b97b5d-wxpd8 9000 --address 0.0.0.0
+- Im Bezug auf "Rolling Updates": https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+- In Vim: `:set paste` um Formatierung für Einrückungen zu entfernen
+- Strategy Rolling Update: `maxSurge: 25%`, `maxUnavailable: 25%`
+- Unterschiede zwischen Recreate und RollingUpdate Strategien
+- Namespaces: Jede Anwendung sollte eigenen Namespace mit eigener Netzwerkkontrolle haben
+- Namespace in Konfiguration setzen: `k config set-context --current --namespace=strelok`
+- Erste Anwendung deployen, z.B. https://github.com/mealie-recipes/mealie
+- `kubectl port-forward` um Ports von lokalem Rechner zu Pod weiterzuleiten. Beispiele:
+  - `kubectl port-forward pod/mypod 5000 6000` 
+  - `kubectl port-forward deployment/mydeployment 5000 6000`
+  - `kubectl port-forward service/myservice 8443:https`
+  - `kubectl port-forward --address 0.0.0.0 pod/mypod 8888:5000`
+- Reihenfolge: Deployment → ReplicaSet → Pods
