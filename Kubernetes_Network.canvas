@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"7ee8c1bf9a855491","x":-180,"y":-20,"width":220,"height":60,"type":"text","text":"Kubernetes Networking"},
+		{"id":"b303146a5245e896","x":-180,"y":-220,"width":220,"height":60,"color":"1","type":"text","text":"Pods"},
+		{"id":"9d2bf7743fa3605f","x":100,"y":-400,"width":620,"height":240,"type":"text","text":"- Networking auf \"Pod Level\"\n- Jeder Pod bekommt seine eigene IP Adresse\n\t- Limitierter Pool (Setting=Pod Sider)\n- Default, alle Pods können sich mit allen Pods auf allen Nodes Verbinden\n\t- Limitierbar durch \"Network Policies\"\n\t\t- Nicht im Fundamental Kurs enthalten\n- Container in Pods können miteinander kommunizieren via localhost\n- "},
+		{"id":"d037164e68f8ed2c","x":160,"y":-20,"width":280,"height":60,"type":"text","text":"CNI-Plugin\n\"Container Networking Interface\""},
+		{"id":"fb5bbaacad523c8b","x":470,"y":-100,"width":430,"height":140,"type":"text","text":"- Versorgt Container mit Netzwerkverbindungen\n- Konfiguriert Netzwerkverbindungen in Container\n- Teilt IP-Adressen zu und setzt Routen\n\t- via iptables & virtuellen NIC's"}
+	],
+	"edges":[
+		{"id":"b06bdd3d1c8dffa9","fromNode":"7ee8c1bf9a855491","fromSide":"top","toNode":"b303146a5245e896","toSide":"bottom"},
+		{"id":"bd7f7d7ccf315884","fromNode":"b303146a5245e896","fromSide":"top","toNode":"9d2bf7743fa3605f","toSide":"left"},
+		{"id":"5731f58668e69e93","fromNode":"7ee8c1bf9a855491","fromSide":"right","toNode":"d037164e68f8ed2c","toSide":"left"}
+	]
+}
