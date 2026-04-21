@@ -49,3 +49,5 @@ Reihenfolge: Deployment → ReplicaSet → Pods
 Beispiel:
 - `k port-forward pods/strelok-app-65b97b5d-wxpd8 9000` - Port 9000 weiterleiten
 - `k port-forward pods/strelok-app-65b97b5d-wxpd8 9000 --address 0.0.0.0` - Port 9000 auf allen Adressen weiterleiten
+   kubectl config set-context --current --namespace=<namespace-name> 
+k port-forward -n <Namespace_Name> pods/<Pod_Name> <Port> <Listener_Netzbereich_IPv4>

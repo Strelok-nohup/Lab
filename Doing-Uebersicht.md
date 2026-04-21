@@ -28,10 +28,11 @@ Node:             lima-rancher-desktop/<IPv4>
 Start Time:       Tue, 14 Apr 2026 15:32:44 +0200
 Labels:           label=Test-Label
                   run=nginx-domke
+- App deployed und via manifest update durchgeführt.
+
 
 
 - Nebenprobleme
 - - RDP zum Ubuntu gefixt via <loginctl unlock-session> 
 - - .vimrc angepasst für yaml-bearbeitung
-
 
