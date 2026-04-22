@@ -1,0 +1,38 @@
+{
+	"nodes":[
+		{"id":"e5379af16b41e3b6","type":"group","x":-1120,"y":440,"width":1360,"height":720,"label":"Service Anlegen"},
+		{"id":"2370f69db999df06","type":"text","text":"name: frontend","x":-580,"y":770,"width":160,"height":60,"color":"5"},
+		{"id":"79291852e5dcbac0","type":"text","text":"Service erstellen","x":-380,"y":770,"width":100,"height":60,"color":"5"},
+		{"id":"98aedf4effaae8fd","type":"text","text":"\n*Service \"Zielt\" nun auf alle deployments hinter name: frontend*\n","x":-100,"y":785,"width":300,"height":80,"color":"5"},
+		{"id":"376f446a2213d6dd","type":"text","text":"```\nNAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE     SELECTOR\nfrontend   ClusterIP   10.43.226.68   <none>        8080/TCP   6m25s   app=frontend\n```","x":-580,"y":865,"width":780,"height":100,"color":"5"},
+		{"id":"6620a6bf6dbf9535","type":"text","text":"*So hat das Cluster eine & gleicbleibende IP-Adresse unter der es ereicht werden kann*\n*IP wird aus einem Pool vergeben*","x":-525,"y":965,"width":670,"height":95,"color":"5"},
+		{"id":"70bf51ee7b3e400a","type":"text","text":"deploy-frontend.yaml\n```\napiVersion: apps/v1\nkind: Deployment\nmetadata:\nlabels:\n    app: frontend\n  name: frontend\nspec:\n  replicas: 10\n  selector:\n    matchLabels:\napp: frontend\n  template:\n    metadata:\nlabels:\napp: frontend\n    spec:\ncontainers:\n- image: httpd:2-alpine3.23\nname: httpd\n  strategy:\n    type: RollingUpdate\n    rollingUpdate:\nmaxUnavailable: 1\nmaxSurge: 1\n```","x":-1100,"y":460,"width":440,"height":680,"color":"5"},
+		{"id":"518bc16e5ef0cfaf","type":"text","text":"Schaut nun hier rein","x":-525,"y":600,"width":185,"height":50,"color":"5"},
+		{"id":"4d4558c3940edd41","type":"text","text":"`k expose deployment frontend --port 8080`","x":-265,"y":600,"width":385,"height":50,"color":"5"},
+		{"id":"ba882034b5c10b66","type":"text","text":"# Services\n*\"Ein Service bietet eine gleichbleibende Adresse um sich mit einem set an pods zu verbinden\"*","x":-380,"y":160,"width":420,"height":120,"color":"6"},
+		{"id":"b303146a5245e896","type":"text","text":"# Pods","x":-230,"y":-220,"width":120,"height":60,"color":"1"},
+		{"id":"9d2bf7743fa3605f","type":"text","text":"- Networking auf \"Pod Level\"\n- Jeder Pod bekommt seine eigene IP Adresse\n\t- Limitierter Pool (Setting=Pod Sider)\n- Default, alle Pods können sich mit allen Pods auf allen Nodes Verbinden\n\t- Limitierbar durch \"Network Policies\"\n\t\t- Nicht im Fundamental Kurs enthalten\n- Container in Pods können miteinander kommunizieren via localhost","x":-480,"y":-540,"width":620,"height":240,"color":"1"},
+		{"id":"fb5bbaacad523c8b","type":"text","text":"- Versorgt Container mit Netzwerkverbindungen\n- Konfiguriert Netzwerkverbindungen in Container\n- Teilt IP-Adressen zu und setzt Routen\n\t- via iptables auf Nodes & virtuellen NIC's in Containern","x":65,"y":-230,"width":490,"height":140,"color":"2"},
+		{"id":"b500af1e4992cbbf","type":"text","text":"Beispiel CNI-Plugins's\n- Cilium\n- Calcio\n- Flannel\n- Azure CNI / Kubenet","x":335,"y":140,"width":250,"height":140,"color":"2"},
+		{"id":"a3f782f1a4abd7c0","type":"text","text":"Beispiel Rancher Desktop VM via `rdctl /bin/bash`\n\n```\n/etc/cni $ tree\n.\n└── net.d\n    └── 10-flannel.conflist\n\n1 directories, 1 files\n/etc/cni $ cat net.d/10-flannel.conflist \n{\n  \"name\":\"cbr0\",\n  \"cniVersion\":\"0.3.1\",\n  \"plugins\":[\n    {\n      \"type\":\"flannel\",\n      \"delegate\":{\n        \"hairpinMode\":true,\n        \"forceAddress\":true,\n        \"isDefaultGateway\":true\n      }\n    },\n    {\n      \"type\":\"portmap\",\n      \"capabilities\":{\n        \"portMappings\":true\n      }\n    }\n  ]\n}\n```","x":680,"y":-490,"width":580,"height":770,"color":"2"},
+		{"id":"d037164e68f8ed2c","type":"text","text":"# CNI-Plugin\n\"Container Networking Interface\"","x":210,"y":-20,"width":200,"height":60,"color":"2"},
+		{"id":"7ee8c1bf9a855491","type":"text","text":"# Kubernetes Networking","x":-360,"y":-20,"width":380,"height":60},
+		{"id":"8f95f25b29ca03fc","type":"text","text":"**WARUM brauchen wir Services**\n- Pods sind \"Ephemeral\"\n\t- Erwarte keine lange Lebensdauer\n- Pods ändern sich ständig und bewegen sich von Node zu Node\n- Wie will das System sich die ganzen geänderten IP-Adressen der Pods merken?","x":-1100,"y":30,"width":580,"height":220}
+	],
+	"edges":[
+		{"id":"b06bdd3d1c8dffa9","fromNode":"7ee8c1bf9a855491","fromSide":"top","toNode":"b303146a5245e896","toSide":"bottom"},
+		{"id":"bd7f7d7ccf315884","fromNode":"b303146a5245e896","fromSide":"top","toNode":"9d2bf7743fa3605f","toSide":"bottom"},
+		{"id":"5731f58668e69e93","fromNode":"7ee8c1bf9a855491","fromSide":"right","toNode":"d037164e68f8ed2c","toSide":"left"},
+		{"id":"22bf2dbea4582d52","fromNode":"d037164e68f8ed2c","fromSide":"top","toNode":"fb5bbaacad523c8b","toSide":"bottom"},
+		{"id":"bf2c4ff3234f7a00","fromNode":"d037164e68f8ed2c","fromSide":"bottom","toNode":"b500af1e4992cbbf","toSide":"top"},
+		{"id":"54172690159a0f4b","fromNode":"b500af1e4992cbbf","fromSide":"right","toNode":"a3f782f1a4abd7c0","toSide":"left"},
+		{"id":"b1c05bef138a6182","fromNode":"7ee8c1bf9a855491","fromSide":"bottom","toNode":"ba882034b5c10b66","toSide":"top"},
+		{"id":"6100eda89a350e0b","fromNode":"ba882034b5c10b66","fromSide":"left","toNode":"8f95f25b29ca03fc","toSide":"right","toEnd":"none"},
+		{"id":"60c0f3e851913351","fromNode":"70bf51ee7b3e400a","fromSide":"right","toNode":"2370f69db999df06","toSide":"left"},
+		{"id":"c12062b77cc7f50a","fromNode":"2370f69db999df06","fromSide":"right","toNode":"79291852e5dcbac0","toSide":"left"},
+		{"id":"cc6f683703e849d5","fromNode":"79291852e5dcbac0","fromSide":"right","toNode":"376f446a2213d6dd","toSide":"top"},
+		{"id":"6ef07d7bb2c18447","fromNode":"4d4558c3940edd41","fromSide":"left","toNode":"518bc16e5ef0cfaf","toSide":"right"},
+		{"id":"59c3a1d685fc3988","fromNode":"518bc16e5ef0cfaf","fromSide":"left","toNode":"70bf51ee7b3e400a","toSide":"top"},
+		{"id":"1ff2e1701e049aae","fromNode":"ba882034b5c10b66","fromSide":"bottom","toNode":"e5379af16b41e3b6","toSide":"top"}
+	]
+}
