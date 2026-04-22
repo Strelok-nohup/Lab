@@ -58,3 +58,4 @@ rdctl = Rancher Desktop CLI
 rdctl shell bash = Bash in der VM des Rancher Desktops
 k get service
 k expose deployment frontend --port 8080 (Macht deployment unter ip / Port erreichbar und legt service an)
+k port-forward services/strelok-app 9000 --address 0.0.0.0
