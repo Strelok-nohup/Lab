@@ -1,5 +1,5 @@
-
-des":[
+{
+	"nodes":[
 		{"id":"e5379af16b41e3b6","type":"group","x":-800,"y":1040,"width":1500,"height":2120,"color":"6","label":"Service Anlegen"},
 		{"id":"ba882034b5c10b66","type":"text","text":"# Services\n*\"Ein Service bietet eine gleichbleibende Adresse um sich mit einem set an pods zu verbinden\"*","x":-380,"y":160,"width":420,"height":120,"color":"6"},
 		{"id":"7ee8c1bf9a855491","type":"text","text":"# Kubernetes Networking","x":-360,"y":-20,"width":380,"height":60},
