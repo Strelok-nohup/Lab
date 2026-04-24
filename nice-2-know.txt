@@ -13,3 +13,28 @@ complete -o default -F __start_kubectl k
 # Unlock RDP-Login
 loginctl unlock-sessions
 
+# Own Aliases
+alias ls="ls -latrh -G"
+alias ll="ls -G"
+export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
+export PATH="/opt/homebrew/opt/util-linux/sbin:$PATH"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Kubernetes Aliases fixed for zsh
+alias k="kubectl"
+alias kgp='kubectl get pods'
+alias kcs='kubectl config use-context rancher-desktop'
+# alias kc='kubectx'
+# alias kn='kubens'
+# alias kcp='kubectl config use-context HIERCONTEXTEINFÜGEN-prod'
+
+# kubectl completion für zsh
+source <(kubectl completion zsh)
+compdef k=kubectl
+
+# Falls compdef noch meckert, einmalig ausführen:
+# zshautoload -Uz compinit && compinit
